@@ -1,1 +1,62 @@
-abc
+create table continents (continent_code varchar(50), continent_name varchar(50));
+desc continents;
+insert into continents (continent_code,continent_name) values ('AS' , 'Asia');
+insert into continents (continent_code,continent_name) values ('Af' , 'frica');
+insert into continents (continent_code,continent_name) values ('NA' , 'North America');
+insert into continents (continent_code,continent_name) values ('SA' , 'South Africa');
+insert into continents (continent_code,continent_name) values ('EU' , 'Europe');
+insert into continents (continent_code,continent_name) values ('AU' , 'Australia');
+
+commit;
+select * from continents;
+drop table continents;
+
+create table countries (country_cd varchar(50), country_name varchar(50),continent_cd varchar(50));
+
+
+
+insert into countries(country_cd,country_name,continent_cd) values('IN','India','AS');
+insert into countries(country_cd,country_name,continent_cd) values('ZA','South Africa','AF');
+insert into countries(country_cd,country_name,continent_cd) values('US','United States','NA');
+insert into countries(country_cd,country_name,continent_cd) values('BR','South Africa','SA');
+insert into countries(country_cd,country_name,continent_cd) values('AU','Australia','AU');
+insert into countries(country_cd,country_name,continent_cd) values('AQ','Antarcatica','AN');
+
+
+select A.continent_code,A.continent_name,
+B.country_cd,B.country_name,B.continent_cd
+FROM continents A --alias
+left join countries B
+ON(A.continent_code=B.continent_cd);
+
+select A.continent_code,A.continent_name,
+B.country_cd,B.country_name,B.continent_cd
+FROM continents A --alias
+right join countries B
+ON(A.continent_code=B.continent_cd);
+
+select A.continent_code,A.continent_name,
+B.country_cd,B.country_name,B.continent_cd
+FROM continents A --alias
+full outer join countries B
+ON(A.continent_code=B.continent_cd);
+
+select A.continent_code,A.continent_name,
+B.country_cd,B.country_name,B.continent_cd
+FROM continents A
+cross join countries B;
+
+
+select A.continent_code,A.continent_name,B.country_cd,B.country_name,B.continent_cd
+FROM continents A
+inner join countries B
+ON(A.continent_code=B.continent_cd);
+
+select case when A.continent_code='NA' then 'NAM' else A.continent_code end ,A.continent_name,B.country_cd,B.country_name,B.continent_cd
+FROM continents A
+inner join countries B
+ON(A.continent_code=B.continent_cd);
+
+
+commit;
+
